@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -8,16 +7,11 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Link from '@mui/material/Link';
-
-
-
-
 
 function App() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -44,18 +38,19 @@ function App() {
                 alt="coding"
               />
               <CardContent>
-                <Typography gutterBottom variant="h2" component="div">
-                  Welcome!
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  Welcome to my personal home page. My name is Aliza Peikes, and I am 
-                  currently pursuing a BS in Computer science in Touro LAS. I currently 
-                  work in the R&D department of S&F Supplies, a sign supply company.
-                </Typography>
+                  <Typography gutterBottom variant="h2" component="div">
+                      Welcome!
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                      Welcome to my personal home page. My name is Aliza Peikes, and I am 
+                      currently pursuing a BS in Computer science at Touro LAS. I currently 
+                      work in the R&D department of S&F Supplies, a sign supply company. I
+                      organize and analyze purchasing and marketing data using Microsoft Excel.
+                  </Typography>
               </CardContent>
               <CardActions >
-                    <Link target="_blank" color="purple" href="https://www.linkedin.com/in/alizapeikes/" underline="hover">LinkedIn  </Link>
-                    <Link target="_blank" color="purple" href="https://github.com/alizapeikes" underline="hover">Github</Link>
+                  <Link target="_blank" color="purple" href="https://www.linkedin.com/in/alizapeikes/" underline="hover">LinkedIn</Link>
+                  <Link target="_blank" color="purple" href="https://github.com/alizapeikes" underline="hover">GitHub</Link>
               </CardActions>
           </Card>   
           <Stack 
