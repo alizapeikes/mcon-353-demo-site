@@ -1,0 +1,19 @@
+.iconButton {
+  float: left;
+}
+
+.completed {
+  margin-top: 2%;
+  opacity: 0.4;
+  text-decoration: line-through;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.onList {
+  color: #1976d2;
+  background-color: #f5f5f5;
+  margin-top: 2%;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}

@@ -1,4 +1,4 @@
-import './App.css';
+import './home.css';
 import React, {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,7 +13,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Link from '@mui/material/Link';
 
-function App() {
+export const Home =() => {
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -26,6 +26,9 @@ function App() {
               <Toolbar variant="dense">
               <Typography variant="h6" color="white" component="div" align = "justify">
                   My Profile
+               </Typography>
+               <Typography variant="h6" color="white" component="div" align = "justify">
+                  Todo
                </Typography>
               </Toolbar>
           </AppBar>
@@ -74,5 +77,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
