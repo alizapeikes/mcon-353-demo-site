@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import IconButton from '@mui/material/IconButton';
 
-export const Todo = () =>{
+export const Todo = () => {
     const commonStyles = {
         bgcolor: 'background.paper',
         m: 1,
@@ -28,10 +28,8 @@ export const Todo = () =>{
     )   
 }
 
-const initialList = [];
-
 const TodoItems = () =>{
-    const[list, setList] = useState(initialList);
+    const[list, setList] = useState([]);
     const[task, setTask] = useState('');
     const[countID, setCountID] = useState(0);
     
@@ -40,8 +38,8 @@ const TodoItems = () =>{
     }
     function addTask(){
         incrementID();
-        const newList = list.concat({name: task, id: countID, isComplete: false});
-        setList(newList);
+        const newTodos = [...list, {name: task, id: countID, isComplete: false}]
+        setList(newTodos);
     }
 
     function incrementID(){
@@ -50,20 +48,20 @@ const TodoItems = () =>{
 
     return(
         <div>
-            <AddItem
-                task={task}
+            <InputItem
                 onChange={handleChange}
                 onAdd={addTask}
             />
 
-            <Tasks 
+            <TaskList 
                 list={list}
-                setList={setList} />
+                setList={setList} 
+            />
         </div>
     )
 }
 
-const AddItem = ({task, onChange, onAdd}) => (
+const InputItem = ({onChange, onAdd}) => (
     <div>
         <Box
             component="form"
@@ -81,49 +79,46 @@ const AddItem = ({task, onChange, onAdd}) => (
     </div>
 );
 
-const Tasks = ({list,setList}) => {
+const TaskList = ({list,setList}) => {
   const [checked, setChecked] = React.useState([1]);
 
   const handleToggle = (value) => () => {
-      const currentIndex = checked.indexOf(value);
-      const newChecked = [...checked];
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
 
-      if (currentIndex === -1) {
-          newChecked.push(value);
-      } else {
-          newChecked.splice(currentIndex, 1);
-      }
-      
-      setChecked(newChecked);
-      if(value.isComplete){
-        value.isComplete = false;
-      }else{
-        value.isComplete = true;
-      }
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+        
+        setChecked(newChecked);
+        if(value.isComplete){
+          value.isComplete = false;
+        }else{
+          value.isComplete = true;
+        }
 
-  };
+    };
 
-  const deleteTask = (value) => () =>{
-    const tempList = [...list];
-    const index = tempList.findIndex(taskTodo => taskTodo.id === value.id);
-    console.log(index);
-    tempList.splice(index,1);
-    setList(tempList);
+  const deleteTask = (value) =>{
+      const tempList = [...list];
+      const index = tempList.findIndex(taskTodo => taskTodo.id === value.id);
+      tempList.splice(index,1);
+      setList(tempList);
   };
 
     return(
     <div>
         <List>
             {list.map((item) => (
-                <ListItem className={item.isComplete ? "completed":"onList"} key={item.currentIndex} primary={item.task}>
+                <ListItem className={item.isComplete ? "completed":"onList"} key={item.id} primary={item.task}>
                 <Checkbox
                     size='small'
-                    edge = "end"
                     onChange={handleToggle(item)}
-                    checked={checked.indexOf(item) !== -1}
                  ></Checkbox>
                  
-                <IconButton  aria-label="delete" onClick={deleteTask(item)}>
+                <IconButton  aria-label="delete" onClick={()=>deleteTask(item)}>
                   <DeleteOutlineOutlinedIcon/>
                 </IconButton>
                 <Typography className={item.isComplete ? "completed":"onList"}>
