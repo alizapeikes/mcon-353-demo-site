@@ -1,7 +1,5 @@
 import './home.css';
-import React, {useState} from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -22,16 +20,6 @@ export const Home =() => {
   }));
   return (
     <div className="App">
-          <AppBar position="static">
-              <Toolbar variant="dense">
-              <Typography variant="h6" color="white" component="div" align = "justify">
-                  My Profile
-               </Typography>
-               <Typography variant="h6" color="white" component="div" align = "justify">
-                  Todo
-               </Typography>
-              </Toolbar>
-          </AppBar>
           
           <Card sx={{ maxWidth: 500, mx: "auto", mt: "4em", mb:"4em"}} >
               <CardMedia

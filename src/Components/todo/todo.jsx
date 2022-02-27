@@ -21,7 +21,7 @@ export const Todo = () => {
       };
 
     return (
-            <Box sx={{ ...commonStyles, borderColor: 'primary.main', justifyContent: 'center', borderRadius: '16px'}} >
+            <Box sx={{ ...commonStyles, borderColor: 'primary.main', justifyContent: 'center', borderRadius: '16px', marginTop: '3em'}} >
                 <Typography sx={{color: '#ff3d00', fontWeight: 'bolder', fontSize: '5rem', fontFamily: 'BlinkMacSystemFont'}}>Todo</Typography>
                 <TodoItems></TodoItems>
             </Box>
@@ -37,6 +37,7 @@ const TodoItems = () =>{
         setTask(event.target.value)
     }
     function addTask(){
+        //use contest instead of useState
         incrementID();
         const newTodos = [...list, {name: task, id: countID, isComplete: false}]
         setList(newTodos);
