@@ -1,5 +1,5 @@
 import './todo.css';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,6 +10,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import IconButton from '@mui/material/IconButton';
+import {TodoContext} from '../app/App.js';
+
+
 
 export const Todo = () => {
     const commonStyles = {
@@ -24,12 +27,13 @@ export const Todo = () => {
             <Box sx={{ ...commonStyles, borderColor: 'primary.main', justifyContent: 'center', borderRadius: '16px', marginTop: '3em'}} >
                 <Typography sx={{color: '#ff3d00', fontWeight: 'bolder', fontSize: '5rem', fontFamily: 'BlinkMacSystemFont'}}>Todo</Typography>
                 <TodoItems></TodoItems>
-            </Box>
+            </Box>  
     )   
 }
 
 const TodoItems = () =>{
-    const[list, setList] = useState([]);
+
+    const {list, setList} = useContext(TodoContext);
     const[task, setTask] = useState('');
     const[countID, setCountID] = useState(0);
     
@@ -53,11 +57,7 @@ const TodoItems = () =>{
                 onChange={handleChange}
                 onAdd={addTask}
             />
-
-            <TaskList 
-                list={list}
-                setList={setList} 
-            />
+            <TaskList />
         </div>
     )
 }
@@ -80,7 +80,8 @@ const InputItem = ({onChange, onAdd}) => (
     </div>
 );
 
-const TaskList = ({list,setList}) => {
+const TaskList = () => {
+  const {list, setList} = useContext(TodoContext);  
   const [checked, setChecked] = React.useState([1]);
 
   const handleToggle = (value) => () => {
