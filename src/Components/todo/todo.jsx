@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import IconButton from '@mui/material/IconButton';
-import {TodoContext} from '../app/App.js';
+import {TodoContext} from  '../../State/context';
 
 
 
@@ -53,7 +53,7 @@ const TodoItems = () =>{
 
     return(
         <div>
-            <InputItem
+            <InputItem 
                 onChange={handleChange}
                 onAdd={addTask}
             />
@@ -72,7 +72,7 @@ const InputItem = ({onChange, onAdd}) => (
             noValidate
             autoComplete="off"
             >
-            <TextField id="standard-basic" label="Enter Task" variant="standard" onChange={onChange} />
+            <TextField id="standard-basic" label="Enter Task" variant="standard" onChange={onChange} placeholder = "Enter Task"/>
         </Box>
         <Button onClick={onAdd} variant="outlined" startIcon={<AddIcon />}>
             Add Task
