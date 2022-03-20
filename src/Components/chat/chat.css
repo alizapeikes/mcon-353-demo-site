@@ -1,17 +1,48 @@
-.message {
-  background-color: rgba(221, 221, 255, 0.5);
-  display: inline-flex;
+.otherMessages {
+  background-color: rgba(25, 118, 210, 0.1);
+  float: left;
   padding: 1%;
   margin-left: 2.25%;
-  border-radius: 15%;
+  border-radius: 10px 100px / 120px;
 }
 
-.initial {
+.myMessages {
+  background-color: rgba(255, 61, 0, 0.1);
+  float: right;
+  padding: 1%;
+  margin-right: 2.25%;
+  border-radius: 100px 10px / 120px;
+}
+
+.myInitial {
   text-align: center;
-  font-size: 2em;
-  padding-right: 1.25%;
-  padding-left: 1.25%;
+  float: right;
+  font-size: 1.5em;
+  padding-right: 1.1%;
+  padding-left: 1.1%;
   color: white;
-  background-color: rgb(74, 74, 236);
+  background-color: rgb(255, 61, 0);
   border-radius: 50%;
+}
+
+.otherInitial {
+  text-align: center;
+  float: left;
+  font-size: 1.5em;
+  padding-right: 1.1%;
+  padding-left: 1.1%;
+  color: white;
+  background-color: rgb(25, 118, 210);
+  border-radius: 50%;
+}
+
+.chat {
+  clear: both;
+  width: 100%;
+}
+
+.chatHeader {
+  background-color: rgba(128, 128, 128, 0.5);
+  border-radius: 4px;
+  height: 10%;
 }

@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './chat.css';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -11,7 +10,6 @@ import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import { blue } from '@mui/material/colors';
 import SendIcon from '@mui/icons-material/Send';
 import List from '@mui/material/List';
 import IconButton from '@mui/material/IconButton';
@@ -19,44 +17,46 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
+import Typography from '@mui/material/Typography';
 import {useInterval} from '../../hooks/use-interval'
-
-
+import { blue } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
 
 
 export const Chat = () => {
     return(
-        <ChatGrid></ChatGrid>
+        <div>
+          <Header></Header>
+          <ChatGrid></ChatGrid>
+        </div>
     );
+}
 
+const Header = () =>{
+  return(
+    <Typography sx={{align: 'right',margin: '2.5%', color: '#ff3d00', fontWeight: 'bolder', fontSize: '2.5em', fontFamily: 'BlinkMacSystemFont'}}>
+        My Chat Room
+    </Typography>
+  );
 }
  
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '95%',
-  }));
 
-  const Item2 = styled(Paper)(({ theme }) => ({
+  const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(0),
     textAlign: 'left',
     color: theme.palette.text.secondary,
-
   }));
 
   const ChatGrid = () => {
     const[chatList, setChatList] = React.useState([]); 
     const[messages, setMessages] = React.useState([]);
     const[currChat, setCurrChat] = React.useState({});
+    const[newUser, setNewUser] = React.useState('');
 
     useInterval(
         () => {
-          //const chatId = params[0];
           fetch(
             `https://z36h06gqg7.execute-api.us-east-1.amazonaws.com/chats`
           )
@@ -65,9 +65,7 @@ const Item = styled(Paper)(({ theme }) => ({
               setChatList(data.Items);
           });
         },
-        1000, // fast polling
-        //60000, // slow polling
-        //currChat.id
+        1000
     );   
     useInterval(
       (params) => {
@@ -86,37 +84,94 @@ const Item = styled(Paper)(({ theme }) => ({
     );
 
     return (
-      <Box sx={{ flexGrow: 1, margin: 5}}>
+      <Box sx={{  marginRight: 30, marginLeft: 30}}>
         <Grid container spacing={1} sx={{height: '100vh'}}>
           <Grid item xs >
-                <Item2 sx={{ m: 1 }}>
+                <Item sx={{ m: 1 }}>
+                    <InputUser
+                        setNewUser={setNewUser}
+                    ></InputUser>
+                </Item>
+                <Item sx={{ m: 1 }}>
                     <InputText
                         chatList={chatList}
                         setChatList={setChatList}
                     ></InputText>
-                </Item2>
-                <Item2 sx={{ m: 1, height: '85vh', overflow: 'scroll'}}>
+                </Item>
+                <Item sx={{ m: 1, height: '76vh', overflow: 'scroll',    
+                            "&::-webkit-scrollbar-track": {
+                            backgroundColor: "white"
+                            },
+                            "&::-webkit-scrollbar": {
+                              width: "8px"
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: 'gray',
+                            borderRadius: 1
+                            }}}>
                     <ChatRows
                         chatList={chatList}
                         setChatList={setChatList}
                         currChat = {currChat}
                         setCurrChat = {setCurrChat}>
                     </ChatRows>
-                </Item2>
+                </Item>
           </Grid>
-          <Grid xs={9}  sx={{ alignItems: 'baseline' }} id = "messages" >
-            <Item sx={{ m: 1, height: '96vh', overflow: 'scroll', alignItems: 'baseline'}}>
-                <EnterMessage
+          <Grid xs={9} >
+            <div className='chatHeader'>
+              <Typography sx={{textAlign: 'center', fontSize: '2em', color: 'GrayText', padding:'1%'}}>{currChat.name}</Typography>
+            </div>
+            <Item 
+                sx={{ height: '78vh', overflowY: 'scroll', overFlowX:'hidden',
+                      "&::-webkit-scrollbar-track": {
+                      backgroundColor: "white"
+                      },
+                      "&::-webkit-scrollbar": {
+                        width: "8px"
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                      backgroundColor: 'gray' /*"rgb(25, 118, 210)"*/,
+                      borderRadius: 1
+                      }}}>          
+
+                <MessageBox 
+                    messages={messages}
+                    newUser = {newUser}
+                ></MessageBox> 
+                </Item>
+                <Item>
+                <EnterMessage 
                     messages={messages}
                     setMessages={setMessages}
                     currChat = {currChat}
+                    newUser = {newUser}
                 ></EnterMessage>
-                <MessageBox
-                    messages={messages}
-                ></MessageBox>
             </Item>
           </Grid>
         </Grid>
+      </Box>
+    );
+  }
+
+  function InputUser(props){
+    function handleChange(event){
+        props.setNewUser(event.target.value)
+    }
+
+    return (
+      <Box
+        component="form"
+        sx={{
+          '& > :not(style)': { marginBottom: 1, marginLeft: 1},
+          bgcolor: blue,
+          display: 'flex', 
+          alignItems: 'flex-start'
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField id="standard-basic" label="User Name" variant="standard" onChange={handleChange}/>
+        <Button></Button>
       </Box>
     );
   }
@@ -127,8 +182,8 @@ const Item = styled(Paper)(({ theme }) => ({
         {props.chatList.map((chat) => (
             <ListItem key={chat.id} component="div" disablePadding>
                 <ListItemButton onClick={() => props.setCurrChat(chat)}>
-                    <AccountCircle className = "profile" sx={{color: "black", mr: 1, my: 0.5 }} />   
-                    <ListItemText primary={chat.name} />
+                    <AccountCircle className = "profile" sx={{  mr: 1, my: 0.5 }} />   
+                    <ListItemText  primary={chat.name} />
                 </ListItemButton>
             </ListItem>
         ))} 
@@ -164,14 +219,13 @@ function InputText(props) {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1},
+          '& > :not(style)': {marginBottom: 1, marginLeft: 1},
           bgcolor: blue,
           display: 'flex', 
           alignItems: 'flex-end'
         }}
         noValidate
         autoComplete="off"
-        
       >
         <TextField id="standard-basic" label="Add Chat" variant="standard" onChange={handleChange}/>
         <Button onClick={addChat} startIcon={<AddIcon />}></Button>
@@ -187,7 +241,7 @@ function InputText(props) {
     const addMessage = () => {
       const newMessage = {
         chatId: props.currChat.id, 
-        username: 'worker', 
+        username: props.newUser, 
         text: message 
       }
       fetch('https://z36h06gqg7.execute-api.us-east-1.amazonaws.com/messages', {
@@ -196,15 +250,12 @@ function InputText(props) {
           "Content-Type": "application/json", // tells REST that we will send the body data in JSON format
         },
         body: JSON.stringify(newMessage),
-      }).then((response) => response.json())
-        .then((data) => console.log(data));
-      //const newMessages = [...props.messages, {text: message}];
-      //props.setMessages(newMessages);
+      }).then((response) => response.json());
     }
     return (
       <Box 
         sx={{
-          maxWidth: '100%',
+          maxWidth: '95%',
         }}
       >
         <FormControl fullWidth sx={{ m: 1}} variant="outlined" id="fullWidth">
@@ -230,11 +281,22 @@ function InputText(props) {
   }  
 
 
+
   function MessageBox(props){
+    const reversedItems = props.messages.map(item => item).reverse();
         return(
-            <List>
-                {props.messages.map((message) =>(
-                    <ListItem key={message.id} ><span className="initial">{message.username.charAt(0).toUpperCase()}</span><span className="message">{message.text}</span></ListItem>
+            <List >
+                {reversedItems.map((message) =>(
+                    <ListItem className ="listItem" key={message.id} >
+                      <div className="chat">
+                      <span className = {message.username === props.newUser? "myInitial": "otherInitial"}>
+                        {message.username.charAt(0).toUpperCase()}
+                      </span>
+                      <span className={message.username === props.newUser? "myMessages": "otherMessages"}>
+                        {message.text}
+                      </span>
+                      </div>
+                    </ListItem>
                 ))}
             </List>
         );
