@@ -1,6 +1,6 @@
 import React from 'react';
 import {render , screen} from '@testing-library/react';
-import { TodoProvider } from '../../State/context';
+import {TodoProvider} from '../../State/context';
 import {Todo} from '../todo/todo';
 
 decribe('Todo component', () =>{

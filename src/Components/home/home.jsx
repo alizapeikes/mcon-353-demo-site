@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Link from '@mui/material/Link';
+import codingPic from '../../images/coding.jpg';
 
 export const Home =() => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -25,7 +26,7 @@ export const Home =() => {
               <CardMedia
                 component="img"
                 height="300"
-                image="coding.jpg"
+                image= {codingPic}
                 alt="coding"
               />
               <CardContent>

@@ -86,19 +86,19 @@ const Header = () =>{
     return (
       <Box sx={{  marginRight: 30, marginLeft: 30}}>
         <Grid container spacing={1} sx={{height: '100vh'}}>
-          <Grid item xs >
+          <Grid item xs width="10%" >
                 <Item sx={{ m: 1 }}>
                     <InputUser
                         setNewUser={setNewUser}
                     ></InputUser>
                 </Item>
-                <Item sx={{ m: 1 }}>
+                <Item sx={{ m: 1}}>
                     <InputText
                         chatList={chatList}
                         setChatList={setChatList}
                     ></InputText>
                 </Item>
-                <Item sx={{ m: 1, height: '76vh', overflow: 'scroll',    
+                <Item sx={{ m: 1, height: '76vh', overflow: 'scroll',  overflowX: "hidden",   
                             "&::-webkit-scrollbar-track": {
                             backgroundColor: "white"
                             },
@@ -178,7 +178,7 @@ const Header = () =>{
 
   function ChatRows(props) {
     return (
-      <List> 
+      <List > 
         {props.chatList.map((chat) => (
             <ListItem key={chat.id} component="div" disablePadding>
                 <ListItemButton onClick={() => props.setCurrChat(chat)}>
@@ -289,8 +289,8 @@ function InputText(props) {
                 {reversedItems.map((message) =>(
                     <ListItem className ="listItem" key={message.id} >
                       <div className="chat">
-                      <span className = {message.username === props.newUser? "myInitial": "otherInitial"}>
-                        {message.username.charAt(0).toUpperCase()}
+                      <span className = {message.username === props.newUser ? "myInitial": "otherInitial"}>
+                        {message.username == null ?"A": message.username.charAt(0).toUpperCase()}
                       </span>
                       <span className={message.username === props.newUser? "myMessages": "otherMessages"}>
                         {message.text}

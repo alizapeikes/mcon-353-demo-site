@@ -120,7 +120,7 @@ const TaskList = () => {
                     onChange={handleToggle(item)}
                  ></Checkbox>
                  
-                <IconButton  aria-label="delete" onClick={()=>deleteTask(item)}>
+                <IconButton  aria-label="delete" onClick={() => deleteTask(item)}>
                   <DeleteOutlineOutlinedIcon/>
                 </IconButton>
                 <Typography className={item.isComplete ? "completed":"onList"}>
